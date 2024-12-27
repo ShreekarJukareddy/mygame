@@ -290,8 +290,9 @@ const Movieguess = ({ onBackToHome, isDarkMode, toggleTheme }) => {
             </div>
 
             <RulesModal 
-                isOpen={showRules} 
-                onClose={handleCloseRules}
+                isOpen={showRules}
+                onClose={() => setShowRules(false)}
+                gameType="movieguess"
             />
         </div>
     );

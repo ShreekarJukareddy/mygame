@@ -13,10 +13,10 @@ const HomePage = ({ onStartGame }) => {
         },
         {
             id: 2,
-            title: "Actor Guess",
-            description: "Guess Telugu actors from movie clues",
-            icon: "🎭",
-            isActive: false
+            title: "Memory Match",
+            description: "Test your memory by matching pairs of cards",
+            icon: "🃏",
+            isActive: true
         },
         {
             id: 3,

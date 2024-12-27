@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 import HomePage from './components/HomePage';
-import Movieguess from './components/Movieguess'; // This is your renamed movie guess game
+import Movieguess from './components/Movieguess';
+import MemoryCard from './components/MemoryCard';
 
 const App = () => {
     const [currentGame, setCurrentGame] = useState(null);
@@ -12,7 +13,10 @@ const App = () => {
     };
 
     const handleGameSelection = (gameId) => {
-        setCurrentGame(gameId === 1 ? 'Movieguess' : null);
+        setCurrentGame(
+            gameId === 1 ? 'Movieguess' :
+            gameId === 2 ? 'MemoryCard' : null
+        );
     };
 
     const handleBackToHome = () => {
@@ -23,6 +27,12 @@ const App = () => {
         <div className={`app-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
             {currentGame === 'Movieguess' ? (
                 <Movieguess 
+                    onBackToHome={handleBackToHome}
+                    isDarkMode={isDarkMode}
+                    toggleTheme={toggleTheme}
+                />
+            ) : currentGame === 'MemoryCard' ? (
+                <MemoryCard 
                     onBackToHome={handleBackToHome}
                     isDarkMode={isDarkMode}
                     toggleTheme={toggleTheme}

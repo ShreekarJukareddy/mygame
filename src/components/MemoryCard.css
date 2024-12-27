@@ -1,0 +1,226 @@
+.memory-game {
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+.game-stats {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.moves-counter, .best-score {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    border-radius: 15px;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    min-width: 150px;
+    text-align: center;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    max-width: 400px;
+    width: 90%;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.memory-card {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.memory-card:hover {
+    transform: translateY(-3px);
+}
+
+.card-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.memory-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.card-front {
+    background: linear-gradient(135deg, #ffffff, #f0f0f0);
+    color: #333;
+}
+
+.card-front::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, 
+            rgba(0, 0, 0, 0.05) 25%, 
+            transparent 25%, 
+            transparent 75%, 
+            rgba(0, 0, 0, 0.05) 75%, 
+            rgba(0, 0, 0, 0.05)
+        );
+    background-size: 8px 8px;
+    border-radius: 6px;
+}
+
+.card-back {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    transform: rotateY(180deg);
+    font-size: 2rem;
+}
+
+.memory-card.matched .card-back {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    animation: matchedPulse 0.5s ease-in-out;
+}
+
+.game-over-message {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 30px;
+    background: rgba(40, 167, 69, 0.1);
+    border-radius: 15px;
+    animation: fadeIn 0.5s ease-in-out;
+    border: 2px solid rgba(40, 167, 69, 0.2);
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode styles */
+.dark-mode.memory-game {
+    background: #1a1a2e;
+}
+
+.dark-mode .card-front {
+    background: linear-gradient(135deg, #2d3250, #1a1f3c);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .game-over-message {
+    color: #fff;
+    background: rgba(40, 167, 69, 0.2);
+}
+
+/* Animations */
+@keyframes matchedPulse {
+    0% { transform: scale(1) rotateY(180deg); }
+    50% { transform: scale(1.1) rotateY(180deg); }
+    100% { transform: scale(1) rotateY(180deg); }
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .cards-grid {
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .card-front,
+    .card-back {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .cards-grid {
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .card-front,
+    .card-back {
+        font-size: 1.5rem;
+    }
+}
+
+/* Card flip animation enhancement */
+.memory-card .card-inner {
+    animation: dealCard 0.3s ease-out backwards;
+}
+
+@keyframes dealCard {
+    from {
+        transform: translateY(-50px) scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Grid animation */
+.cards-grid {
+    animation: fadeInGrid 0.5s ease-out;
+}
+
+@keyframes fadeInGrid {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} 
